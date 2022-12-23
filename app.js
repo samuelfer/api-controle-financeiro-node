@@ -1,6 +1,10 @@
 const express = require("express");
 const cors = require("cors");
 
+const AuthRegisterUserRoutes = require("./routes/AuthRegisterUserRoutes");
+
+app.use(AuthRegisterUserRoutes);
+
 require("dotenv").config();
 
 var app = express();
