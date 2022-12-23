@@ -4,6 +4,8 @@ const bcrypt = require("bcrypt");
 
 const jwt = require("jsonwebtoken");
 
+const imageToBase64 = require("image-to-base64");
+
 module.exports = class LoginController {
     static async login(req, res) {
         const { email, password } = req.body;
@@ -43,5 +45,14 @@ module.exports = class LoginController {
             console.error(error);
             res.status(500).json({ message: "Erro ao tentar realizar o login" });
         }
+    }
+
+    static async downloadImage(req, res) {
+        const nameImage = req.headers["imgname"];
+        imageToBase64(`./uploads/${nameImage}`).then(response => {
+            res.send({ image: response });
+        }).catch(error => {
+            console.error("Entrei no erro ",error);
+        });
     }
 }
