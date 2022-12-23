@@ -44,4 +44,37 @@ module.exports = class RevenueController {
             res.status(500).json({ message: "Ocorreu um erro ao tentar cadastrar" });
         }
     }
+
+    static async listRevenue(req, res) {
+        Revenue.find({}).then(list => {
+            const { month } = req.headers;
+            const showMonth = month ? month : "";
+            const { user } = req.headers;
+
+            const newArrayList = list.map(el => {
+                return {
+                    user: {
+                        title: el.user.title,
+                        month: {
+                            title: el.user.month.title,
+                            listMonth: {
+                                _id: el.id.toString(),
+                                typeRevenue: el.user.month.listMonth.typeRevenue,
+                                value: el.user.month.listMonth.value,
+                                dateEntry: el.user.month.listMonth.dateEntry,
+                                actions: [
+                                    "https://raw.githubusercontent.com/daniloagostinho/curso-angular15-na-pratica/main/src/assets/images/edit.png",
+                                    "https://raw.githubusercontent.com/daniloagostinho/curso-angular15-na-pratica/main/src/assets/images/delete.png"
+                                ]
+                            }
+                        }
+                    }
+                }
+            });
+
+            const result = showMonth ? newArrayList.filter(item =>
+                user.includes(item.user.title) && item.user.month.title.includes(month)) : list
+            res.status(200).json({ result });
+        });
+    }
 }
