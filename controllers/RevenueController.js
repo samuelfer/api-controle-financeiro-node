@@ -87,7 +87,20 @@ module.exports = class RevenueController {
             res.status(200).json({ user });
 
         } catch (error) {
-            res.status(500).json({ message: "Erro ao tentar atualizar o usuário" });
+            res.status(500).json({ message: "Erro ao tentar atualizar a receita" });
+        }
+    }
+
+    static async deleteRevenue(req, res) {
+        try {
+            const id = req.params.id;
+            const deleteRevenue = await Revenue.findByIdAndDelete(id);
+            if (deleteRevenue) {
+                res.status(200).json({ message: "Receita excluída com sucesso" });
+            }
+
+        } catch (error) {
+            res.status(500).json({ message: "Erro ao tentar excluir a receita" });
         }
     }
 }
