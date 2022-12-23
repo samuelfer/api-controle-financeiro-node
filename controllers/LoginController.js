@@ -52,7 +52,7 @@ module.exports = class LoginController {
         imageToBase64(`./uploads/${nameImage}`).then(response => {
             res.send({ image: response });
         }).catch(error => {
-            console.error("Entrei no erro ",error);
+            console.error(error);
         });
     }
 }
