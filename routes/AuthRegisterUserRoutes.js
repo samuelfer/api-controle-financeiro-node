@@ -25,4 +25,4 @@ const AuthRegisterUserController = require("../controllers/AuthRegisterUserContr
 router.get("/", AuthRegisterUserController.init);
 router.post("/auth/register/user", upload.single("image"), AuthRegisterUserController.registerUser);
 
-nodule.exports = router;
+module.exports = router;

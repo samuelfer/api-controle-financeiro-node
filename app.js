@@ -3,13 +3,13 @@ const cors = require("cors");
 
 const AuthRegisterUserRoutes = require("./routes/AuthRegisterUserRoutes");
 
-app.use(AuthRegisterUserRoutes);
-
 require("dotenv").config();
 
 var app = express();
 
 app.use(cors());
+
+app.use(AuthRegisterUserRoutes);
 
 const port = process.env.PORT || 3000;
 
