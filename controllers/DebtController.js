@@ -81,4 +81,17 @@ module.exports = class DebtController {
             res.status(200).json({ result });
         });
     }
+
+     static async updateDebt(req, res) {
+        try {
+            const id = req.params.id;
+            const debt = await Debt.findByIdAndUpdate(id, req.body, {
+                new: true
+            });
+            res.status(200).json({ debt });
+
+        } catch (error) {
+            res.status(500).json({ message: "Erro ao tentar atualizar a dívida" });
+        }
+    }
 }

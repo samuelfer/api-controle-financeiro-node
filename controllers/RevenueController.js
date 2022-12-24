@@ -81,10 +81,10 @@ module.exports = class RevenueController {
     static async updateRevenue(req, res) {
         try {
             const id = req.params.id;
-            const user = await Revenue.findByIdAndUpdate(id, req.body, {
+            const revenue = await Revenue.findByIdAndUpdate(id, req.body, {
                 new: true
             });
-            res.status(200).json({ user });
+            res.status(200).json({ revenue });
 
         } catch (error) {
             res.status(500).json({ message: "Erro ao tentar atualizar a receita" });
