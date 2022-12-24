@@ -94,4 +94,17 @@ module.exports = class DebtController {
             res.status(500).json({ message: "Erro ao tentar atualizar a dívida" });
         }
     }
+
+    static async deleteDebt(req, res) {
+        try {
+            const id = req.params.id;
+            const deleteDebt = await Debt.findByIdAndDelete(id);
+            if (deleteDebt) {
+                res.status(200).json({ message: "Dívida excluída com sucesso" });
+            }
+
+        } catch (error) {
+            res.status(500).json({ message: "Erro ao tentar excluir a dívida" });
+        }
+    }
 }
