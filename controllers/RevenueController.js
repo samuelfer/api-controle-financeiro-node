@@ -58,7 +58,7 @@ module.exports = class RevenueController {
                         month: {
                             title: el.user.month.title,
                             listMonth: {
-                                _id: el.id.toString(),
+                                _id: el._id.toString(),
                                 typeRevenue: el.user.month.listMonth.typeRevenue,
                                 value: el.user.month.listMonth.value,
                                 dateEntry: el.user.month.listMonth.dateEntry,

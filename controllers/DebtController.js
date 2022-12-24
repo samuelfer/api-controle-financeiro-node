@@ -47,4 +47,38 @@ module.exports = class DebtController {
             res.status(500).json({ message: "Ocorreu um erro ao tentar cadastrar" });
         }
     }
+
+    static async listDebt(req, res) {
+        Debt.find({}).then(list => {
+            const { month } = req.headers;
+            const showMonth = month ? month : "";
+            const { user } = req.headers;
+
+            const newArrayList = list.map(el => {
+                return {
+                    user: {
+                        title: el.user.title,
+                        month: {
+                            title: el.user.month.title,
+                            listMonth: {
+                                _id: el._id.toString(),
+                                debt: el.user.month.listMonth.debt,
+                                category: el.user.month.listMonth.category,
+                                value: el.user.month.listMonth.value,
+                                expirationDate: el.user.month.listMonth.expirationDate,
+                                actions: [
+                                    "https://raw.githubusercontent.com/daniloagostinho/curso-angular15-na-pratica/main/src/assets/images/edit.png",
+                                    "https://raw.githubusercontent.com/daniloagostinho/curso-angular15-na-pratica/main/src/assets/images/delete.png"
+                                ]
+                            }
+                        }
+                    }
+                }
+            });
+
+            const result = showMonth ? newArrayList.filter(item =>
+                user.includes(item.user.title) && item.user.month.title.includes(month)) : list
+            res.status(200).json({ result });
+        });
+    }
 }
